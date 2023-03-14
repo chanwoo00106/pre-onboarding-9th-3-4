@@ -7,6 +7,8 @@ import {
   PointElement,
   LineElement,
   BarElement,
+  Legend,
+  Colors,
 } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { ChartDataType } from '../types/ChartDataType';
@@ -19,7 +21,9 @@ ChartJS.register(
   Tooltip,
   PointElement,
   LineElement,
-  BarElement
+  BarElement,
+  Legend,
+  Colors
 );
 
 const DrawChart = () => {
@@ -36,7 +40,24 @@ const DrawChart = () => {
   if (isError) return <h1>Error</h1>;
   if (!data) return <h1>Loading...</h1>;
 
-  return <Chart type='bar' data={convertChartData(data)} />;
+  return (
+    <Chart
+      type='bar'
+      data={convertChartData(data)}
+      options={{
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+          },
+        },
+        hover: {
+          mode: 'index',
+          intersect: false,
+        },
+      }}
+    />
+  );
 };
 
 export default DrawChart;
