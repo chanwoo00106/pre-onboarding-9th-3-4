@@ -8,7 +8,10 @@ import {
   LineElement,
   BarElement,
 } from 'chart.js';
+import { useEffect, useState } from 'react';
+import { ChartDataType } from '../types/ChartDataType';
 import convertChartData from '../libs/convertChartData';
+import getChartData from '../services/getChartData';
 
 ChartJS.register(
   CategoryScale,
@@ -20,7 +23,20 @@ ChartJS.register(
 );
 
 const DrawChart = () => {
-  return <Chart type='bar' data={convertChartData()} />;
+  const [data, setData] = useState<ChartDataType | null>(null);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    getChartData().then((data) => {
+      if (!data.ok) return setIsError(true);
+      setData(data.data);
+    });
+  }, []);
+
+  if (isError) return <h1>Error</h1>;
+  if (!data) return <h1>Loading...</h1>;
+
+  return <Chart type='bar' data={convertChartData(data)} />;
 };
 
 export default DrawChart;
