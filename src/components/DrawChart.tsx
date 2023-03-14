@@ -8,6 +8,7 @@ import {
   LineElement,
   BarElement,
 } from 'chart.js';
+import convertChartData from '../libs/convertChartData';
 
 ChartJS.register(
   CategoryScale,
@@ -19,26 +20,7 @@ ChartJS.register(
 );
 
 const DrawChart = () => {
-  return (
-    <Chart
-      type='bar'
-      data={{
-        datasets: [
-          {
-            type: 'line',
-            data: [1, 2, 3],
-            label: 'Line Dataset',
-          },
-          {
-            type: 'bar',
-            data: [4, 5, 6],
-            label: 'Bar Dataset',
-          },
-        ],
-        labels: ['January', 'February', 'March'],
-      }}
-    />
-  );
+  return <Chart type='bar' data={convertChartData()} />;
 };
 
 export default DrawChart;
