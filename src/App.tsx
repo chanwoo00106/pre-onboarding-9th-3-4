@@ -1,8 +1,10 @@
+import MainPageLayout from './layout/MainPageLayout';
+
 function App() {
   return (
-    <div className='App'>
-      <h1>Vite + React</h1>
-    </div>
+    <MainPageLayout>
+      <div>hello world</div>
+    </MainPageLayout>
   );
 }
 
