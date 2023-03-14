@@ -1,20 +1,29 @@
 import { ChartData } from 'chart.js';
+import { ChartDataType } from '../types/ChartDataType';
 
-const convertChartData = (): ChartData<'bar' | 'line', number[], string> => {
+const convertChartData = (
+  data: ChartDataType
+): ChartData<'bar' | 'line', number[], string> => {
+  const { response } = data;
+
+  const lineData = Object.values(response).map((value) => value.value_area);
+  const barData = Object.values(response).map((value) => value.value_bar);
+  const labels = Object.keys(response);
+
   return {
     datasets: [
       {
         type: 'line',
-        data: [1, 2, 3],
-        label: 'Line Dataset',
+        data: lineData,
+        label: 'value_area',
       },
       {
         type: 'bar',
-        data: [4, 5, 6],
-        label: 'Bar Dataset',
+        data: barData,
+        label: 'value_bar',
       },
     ],
-    labels: ['January', 'February', 'March'],
+    labels,
   };
 };
 
