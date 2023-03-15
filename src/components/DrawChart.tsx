@@ -10,10 +10,13 @@ import {
   BarElement,
   Legend,
   Colors,
+  registerables,
 } from 'chart.js';
 import { ChartDataType } from '../types/ChartDataType';
 import convertChartData from '../libs/convertChartData';
 import getChartData from '../services/getChartData';
+
+ChartJS.register(...registerables);
 
 ChartJS.register(
   CategoryScale,
